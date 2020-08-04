@@ -20,7 +20,7 @@ export class Server {
   }
 
   public static bootstrap(): Server {
-    if(!Server._instance) Server._instance = new Server();
+    if (!Server._instance) Server._instance = new Server();
     return Server._instance;
   }
 
