@@ -8,6 +8,7 @@ import * as errorhandlers from './utils/erros/errorHandlers';
 import appRouter from './router';
 
 export class Server {
+  private static _instance: Server;
   public app: express.Application;
 
   private constructor() {
@@ -19,7 +20,8 @@ export class Server {
   }
 
   public static bootstrap(): Server {
-    return new Server();
+    if(!Server._instance) Server._instance = new Server();
+    return Server._instance;
   }
 
   public listen() {

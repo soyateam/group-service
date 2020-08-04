@@ -1,11 +1,11 @@
 
 const config = {
     server: {
-      port: process.env.PORT || 8000,
+      port: process.env.PORT || 3000,
       name: 'Hierarchy-Service',
     },
     db: {
-      connectionString: `mongodb://${process.env.DB_SERVER || 'localhost:27017/'}${process.env.DB_NAME || 'birthdayDB'}${
+      connectionString: `mongodb://${process.env.DB_SERVER || 'localhost:27017/'}${process.env.DB_NAME || 'HierarchyDB'}${
         process.env.DB_REPLICA_NAME ? `?replicaSet=${process.env.DB_REPLICA_NAME}` : ''
       }`,
       port: process.env.DB_PORT || 27017,
@@ -15,9 +15,10 @@ const config = {
       dev: 'development',
     },
     endpoints: {
-      users: {
-        api: process.env.USER_API || '/api/user',
-        rpc: process.env.USERS_RPC_ENDPOINT || 'localhost:8086',
+      kartoffelAPI: {
+        baseURL:
+            process.env.KARTOFFEL_API ||
+            'http://kartoffel-master.eastus.cloudapp.azure.com:3001/api'
       },
     },
   };

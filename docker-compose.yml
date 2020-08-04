@@ -8,6 +8,8 @@ services:
     build: . 
     volumes:
         - ./src:/usr/app/src
-    # environment:
-    # depends_on:
+    environment:
+      KARTOFFEL_API: "http://kartoffel-master.eastus.cloudapp.azure.com:3000/api"
     restart: always
+
+  
