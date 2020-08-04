@@ -1,0 +1,13 @@
+version: "2.1"
+services:
+  hierarchy-service:
+    container_name: hierarchy-service
+    image: hierarchy-service:latest
+    ports:
+        - '3000:3000'
+    build: . 
+    volumes:
+        - ./src:/usr/app/src
+    # environment:
+    # depends_on:
+    restart: always
