@@ -1,16 +1,16 @@
-version: "2.1"
+version: '3.5'
 services:
   hierarchy-service:
     container_name: hierarchy-service
     image: hierarchy-service:latest
     command: npm run dev:watch # Hot reload
     ports:
-      - "3000:3000"
+      - '3000:3000'
     build:
       context: .
-      dockerfile: Dockerfile.dev
+      target: BUILD
     volumes:
       - ./src:/usr/src/app/src # share src code with the containers
     environment:
-      KARTOFFEL_API: "http://kartoffel-master.eastus.cloudapp.azure.com:3000/api"
+      KARTOFFEL_API: 'http://kartoffel-master.eastus.cloudapp.azure.com:3000/api'
     restart: always

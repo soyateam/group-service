@@ -1,11 +1,11 @@
-import * as express from "express";
-import * as bodyParser from "body-parser";
-import config from "./config";
-import { log } from "./utils/logger/logger";
-import { SeverityLevel } from "./utils/logger/severityLevel";
-import addHeaders from "./utils/addHeaders";
-import * as errorhandlers from "./utils/erros/errorHandlers";
-import appRouter from "./router";
+import * as express from 'express';
+import * as bodyParser from 'body-parser';
+import config from './config';
+import { log } from './utils/logger/logger';
+import { SeverityLevel } from './utils/logger/severityLevel';
+import addHeaders from './utils/addHeaders';
+import * as errorhandlers from './utils/erros/errorHandlers';
+import appRouter from './router';
 
 export class Server {
   private static _instance: Server;
@@ -28,10 +28,8 @@ export class Server {
     this.app.listen(config.server.port, () => {
       log(
         SeverityLevel.INFO,
-        `Server running in ${
-          process.env.NODE_ENV || config.env.dev
-        } environment on port ${config.server.port}`,
-        "connectedToServer"
+        `Server running in ${process.env.NODE_ENV || config.env.dev} environment on port ${config.server.port}`,
+        'connectedToServer',
       );
     });
   }
@@ -43,7 +41,7 @@ export class Server {
   }
 
   private initializeRouters() {
-    this.app.use("/", appRouter);
+    this.app.use('/', appRouter);
   }
 
   private initializeErrorHandling() {
