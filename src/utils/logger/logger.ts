@@ -1,20 +1,31 @@
-import * as winston from 'winston';
-import config from '../../config';
-import { SeverityLevel } from './severityLevel';
+import * as winston from "winston";
+import config from "../../config";
+import { SeverityLevel } from "./severityLevel";
 
-export const logger = winston.createLogger({ defaultMeta: { service: config.server.name } });
+export const logger = winston.createLogger({
+  defaultMeta: { service: config.server.name },
+});
 
-if (process.env.NODE_ENV !== 'prod') {
+if (process.env.NODE_ENV !== config.env.prod) {
+  // Console handler
   logger.add(
-      new winston.transports.Console({
+    new winston.transports.Console({
       format: winston.format.combine(
         winston.format.timestamp({
-          format: 'YYYY-MM-DD HH:mm:ss',
+          format: "YYYY-MM-DD HH:mm:ss",
         }),
-        winston.format.json(),
+        winston.format.json()
       ),
-    }),
+    })
   );
+} else {
+  // File handler
+  logger.configure({
+    level: "info",
+    transports: [
+      new winston.transports.File({ filename: "./logs/hierarchy/service.log" }),
+    ],
+  });
 }
 
 /**
@@ -32,7 +43,14 @@ export const log = (
   description: string,
   correlationId?: string,
   user?: string,
-  more?: object,
+  more?: object
 ) => {
-  logger.log({ name, correlationId, user, level: severity, message: description, ...more });
+  logger.log({
+    name,
+    correlationId,
+    user,
+    level: severity,
+    message: description,
+    ...more,
+  });
 };

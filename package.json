@@ -18,8 +18,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc",
-    "watch": "tsc --watch",
+    "build:watch": "tsc --watch",
     "dev": "ts-node src/index.ts",
+    "dev:watch": "nodemon --exec ts-node -- ./src/index.ts",
     "start": "nodemon ./dist/index.js",
     "install:prod": "npm install --production"
   },
