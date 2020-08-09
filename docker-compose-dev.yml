@@ -8,7 +8,7 @@ services:
       - '3000:3000'
     build:
       context: .
-      target: BUILD
+      target: DEV
     volumes:
       - ./src:/usr/src/app/src # share src code with the containers
     environment:
