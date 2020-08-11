@@ -2,12 +2,13 @@ const config = {
   apiPrefix: "/api",
   server: {
     port: process.env.PORT || 3000,
-    name: "group-Service",
+    name: "Group-Service",
   },
   db: {
-    connectionString: `mongodb://${
-      process.env.DB_SERVER || "localhost:27017/"
-    }${process.env.DB_NAME || "groupDB"}${
+    connectionString: `mongodb://
+    ${process.env.DB_SERVER || "localhost:27017/"}
+    ${process.env.DB_NAME || "GroupDB"}
+    ${
       process.env.DB_REPLICA_NAME
         ? `?replicaSet=${process.env.DB_REPLICA_NAME}`
         : ""
