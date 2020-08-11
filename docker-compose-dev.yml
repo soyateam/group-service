@@ -1,8 +1,8 @@
 version: '3.5'
 services:
-  hierarchy-service:
-    container_name: hierarchy-service
-    image: hierarchy-service:latest
+  group-service:
+    container_name: group-service
+    image: group-service:latest
     command: npm run dev:watch # Hot reload
     ports:
       - '3000:3000'
@@ -11,6 +11,10 @@ services:
       target: DEV
     volumes:
       - ./src:/usr/src/app/src # share src code with the containers
-    environment:
-      KARTOFFEL_API: 'http://kartoffel-master.eastus.cloudapp.azure.com:3000/api'
+    # environment:
     restart: always
+    depends_on:
+      - mongo
+    restart: always
+  mongo:
+    image: mongo:latest

@@ -1,13 +1,16 @@
-version: '2.1'
+version: "2.1"
 services:
-  hierarchy-service:
-    container_name: hierarchy-service
-    image: hierarchy-service:latest
+  group-service:
+    container_name: group-service
+    image: group-service:latest
     ports:
-      - '3000:3000'
+      - "3000:3000"
     build: .
     volumes:
       - ./logs:/usr/src/app/logs
-    environment:
-      KARTOFFEL_API: 'http://kartoffel-master.eastus.cloudapp.azure.com:3000/api'
+    # environment:
+    depends_on:
+      - mongo
     restart: always
+  mongo:
+    image: mongo:latest

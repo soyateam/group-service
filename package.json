@@ -1,15 +1,17 @@
 {
-  "name": "hierarchy-service",
+  "name": "group-service",
   "version": "1.0.0",
   "description": "a service for managing the organizations",
   "main": "index.js",
   "dependencies": {
     "axios": "^0.19.2",
     "express": "^4.17.1",
+    "mongoose": "^5.9.28",
     "winston": "^3.3.3"
   },
   "devDependencies": {
     "@types/express": "^4.17.7",
+    "@types/mongoose": "^5.7.36",
     "@types/node": "^14.0.27",
     "nodemon": "^2.0.4",
     "ts-node": "^8.10.2",
@@ -26,13 +28,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/soyateam/hierarchy-service.git"
+    "url": "git+https://github.com/soyateam/group-service.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/soyateam/hierarchy-service/issues"
+    "url": "https://github.com/soyateam/group-service/issues"
   },
-  "homepage": "https://github.com/soyateam/hierarchy-service#readme"
+  "homepage": "https://github.com/soyateam/group-service#readme"
 }
