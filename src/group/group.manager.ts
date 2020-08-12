@@ -1,12 +1,24 @@
-import { KartoffelService } from "../kartoffel/kartoffel.service";
-import { IOrganization } from "../kartoffel/organization.interface";
-export class GroupManager {
-  static getOrganizationById = async (id: string) => {
-    // TODO: get token from spike service
-    const response = await KartoffelService.GetOrgByID(id);
-    console.log(response);
-    const orgs: IOrganization = response.data;
+import { GroupRepository } from "./group.repository";
 
-    return orgs;
-  };
+export class GroupManager {
+  // static create(group: IGroup) {
+  //   return GroupRepository.create(group);
+  // }
+
+  static getById(id: string) {
+    return GroupRepository.getById(id);
+  }
+
+  static getByParentId(pId: string) {
+    return GroupRepository.getChildrenByParentId(pId);
+  }
+
+  static async GetManyByIds(ids: [string]) {
+    return GroupRepository.getMany(ids);
+  }
+
+  static async UpdateCounter(id: string, isInc: boolean) {
+    const amountUpdate = isInc ? 1 : -1;
+    return GroupRepository.updateById(id, amountUpdate);
+  }
 }

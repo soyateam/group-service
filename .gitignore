@@ -86,3 +86,5 @@ typings/
 yarn.lock
 
 .prettierrc.js
+
+publickey.pem
