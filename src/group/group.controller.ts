@@ -6,10 +6,6 @@ import { Validations } from "../utils/validations/validations";
 import config from "../config";
 
 export class GroupController {
-  // static async create(req: Request, res: Response) {
-  //   // NOTE: maybe we need to implments this for cron service use
-  // }
-
   static async getById(req: Request, res: Response) {
     const { id } = req.params;
     if (!Validations.isIdValid(id)) throw new IdInvalidError();
@@ -30,12 +26,11 @@ export class GroupController {
     res.json(group);
   }
 
-  // static async getManyId(req: Request, res: Response) {
+  // static async getManyById(req: Request, res: Response) {
   //   const { ids } = req.body;
 
-  //   // TODO: add validation id
-  //   // ids.forEach((id) =>
-  //   // {(!mongoose.Types.ObjectId.isValid(id)) throw new IdInvalidError())};
+  //   ids.forEach((id: string) =>
+  //   { if(!Validations.isIdValid(id)) throw new IdInvalidError()});
 
   //   const group: [IGroup] | null = await GroupManager.GetManyByIds(ids);
   //   if (!group) {

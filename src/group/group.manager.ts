@@ -1,10 +1,6 @@
 import { GroupRepository } from "./group.repository";
 
 export class GroupManager {
-  // static create(group: IGroup) {
-  //   return GroupRepository.create(group);
-  // }
-
   static getById(id: string) {
     return GroupRepository.getById(id);
   }
