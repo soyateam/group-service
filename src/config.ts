@@ -19,16 +19,6 @@ const config = {
     dev: "dev",
   },
   RootAncestorId: "כובעי הקש" || process.env.ROOT_ANCESTOR_ID,
-  endpoints: {
-    kartoffelAPI: {
-      baseURL:
-        process.env.KARTOFFEL_API ||
-        "http://kartoffel-master.eastus.cloudapp.azure.com:3000/api",
-    },
-    OSpike: {
-      baseURL: process.env.OSPIKE_URL || "https://51.144.178.121:1337/",
-    },
-  },
 };
 
 export default config;

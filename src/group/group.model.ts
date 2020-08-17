@@ -14,6 +14,10 @@ const groupSchema = new Schema({
     required: true,
     unique: true,
   },
+  parent: {
+    type: ObjectId,
+    required: true,
+  },
   ancestors: {
     type: [{ type: ObjectId, ref: "group" }],
     default: [],

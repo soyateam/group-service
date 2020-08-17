@@ -4,6 +4,7 @@ export interface IGroup {
   ancestors: IGroup[] | string[]; // NOTE: or to do not required
   children: IGroup[] | string[]; // NOTE: or to do not required
   isMador: boolean;
+  parent: string;
   unitName: string; // NOTE: or enums unit
   peopleSum: number;
   serviceType: IServiceType;
