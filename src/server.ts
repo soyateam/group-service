@@ -6,7 +6,6 @@ import { SeverityLevel } from "./utils/logger/severityLevel";
 import addHeaders from "./utils/addHeaders";
 import * as errorhandlers from "./utils/erros/errorHandlers";
 import appRouter from "./router";
-// import saveOSpikePublicKey from "./ospike/ospike.service";
 
 export class Server {
   private static _instance: Server;
@@ -30,9 +29,7 @@ export class Server {
     this.app.listen(config.server.port, () => {
       log(
         SeverityLevel.INFO,
-        `Server running in ${
-          process.env.NODE_ENV || config.env.dev
-        } environment on port ${config.server.port}`,
+        `Server running in ${process.env.NODE_ENV || config.env.dev} environment on port ${config.server.port}`,
         "connectedToServer"
       );
     });

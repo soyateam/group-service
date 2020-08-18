@@ -1,8 +1,8 @@
 export interface IGroup {
   name: string;
   kartoffelID: string;
-  ancestors: IGroup[] | string[]; // NOTE: or to do not required
-  children: IGroup[] | string[]; // NOTE: or to do not required
+  ancestors: [string];
+  children: [string];
   isMador: boolean;
   parent: string;
   unitName: string; // NOTE: or enums unit
@@ -10,6 +10,7 @@ export interface IGroup {
   serviceType: IServiceType;
   rankType: IRankType;
   assignedCount: number;
+  childrens: [IGroup];
 }
 
 export interface IServiceType {

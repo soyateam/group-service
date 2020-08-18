@@ -1,9 +1,9 @@
-import axios from 'axios';
+import axios from "axios";
 
 export class HttpClient {
   static get(
     url: string,
-    endpoint: string = '',
+    endpoint: string = ""
     // query?: { [key: string]: string; }
   ) {
     // const params = new URLSearchParams();

@@ -1,14 +1,14 @@
 import { Request, Response } from "express";
 import { GroupManager } from "./group.manager";
 import { IGroup } from "./group.interface";
-import { GroupNotFound, IdInvalidError } from "../utils/erros/userErrors";
+import { GroupNotFound, IdInvalidError, QueryParamInvalidError } from "../utils/erros/userErrors";
 import { Validations } from "../utils/validations/validations";
 import config from "../config";
+import { ServerError } from "../utils/erros/errorTypes";
 
 export class GroupController {
   static async getById(req: Request, res: Response) {
     const { id } = req.params;
-    if (!Validations.isIdValid(id)) throw new IdInvalidError();
 
     const group: IGroup | null = await GroupManager.getById(id);
     if (!group) throw new GroupNotFound();
@@ -21,31 +21,27 @@ export class GroupController {
     if (!Validations.isIdValid(pId)) throw new IdInvalidError();
 
     const group: IGroup | null = await GroupManager.getByParentId(pId);
-    if (!group) throw new GroupNotFound();
+    if (!group) throw new ServerError("can`t found groups");
 
-    res.json(group);
+    res.json(group.childrens);
   }
 
-  // static async getManyById(req: Request, res: Response) {
-  //   const { ids } = req.body;
+  static async getManyById(req: Request, res: Response) {
+    const { ids } = req.body;
 
-  //   ids.forEach((id: string) =>
-  //   { if(!Validations.isIdValid(id)) throw new IdInvalidError()});
+    const groups: IGroup[] | [] = await GroupManager.GetManyByIds(ids);
+    if (!groups) throw new ServerError("cant found groups");
 
-  //   const group: [IGroup] | null = await GroupManager.GetManyByIds(ids);
-  //   if (!group) {
-  //     throw new GroupNotFound(); // TODO: group errors !
-  //   }
-  //   res.json(group);
-  // }
+    res.json(groups);
+  }
 
   static async updateCounter(req: Request, res: Response) {
-    const isCountGrow = req.body.isCountGrow;
     const { id } = req.params;
+    const { isCountGrow } = req.body;
 
-    if (!Validations.isIdValid(id)) throw new IdInvalidError();
+    const updateGroup: IGroup | null = await GroupManager.UpdateCounter(id, isCountGrow);
+    if (!updateGroup) throw new ServerError("cant found update group");
 
-    const updateResponse = await GroupManager.UpdateCounter(id, isCountGrow);
-    res.json("hey");
+    res.json(updateGroup);
   }
 }

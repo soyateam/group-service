@@ -2,7 +2,6 @@ import * as mongoose from "mongoose";
 import { IGroup } from "./group.interface";
 
 const { Schema } = mongoose;
-const { ObjectId } = Schema.Types;
 
 const groupSchema = new Schema({
   name: {
@@ -10,21 +9,22 @@ const groupSchema = new Schema({
     required: true,
   },
   kartoffelID: {
-    type: ObjectId,
+    type: String,
     required: true,
     unique: true,
   },
   parent: {
-    type: ObjectId,
+    type: String,
     required: true,
+    default: null,
   },
   ancestors: {
-    type: [{ type: ObjectId, ref: "group" }],
+    type: [String],
     default: [],
     required: true,
   },
   children: {
-    type: [{ type: ObjectId, ref: "group" }],
+    type: [String],
     default: [],
     required: true,
   },
@@ -77,7 +77,6 @@ const groupSchema = new Schema({
   },
 });
 
-export const GroupModel = mongoose.model<IGroup & mongoose.Document>(
-  "group",
-  groupSchema
-);
+groupSchema.virtual("childrens", { ref: "group", localField: "children", foreignField: "kartoffelID" });
+
+export const GroupModel = mongoose.model<IGroup & mongoose.Document>("group", groupSchema);

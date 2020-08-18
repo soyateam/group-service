@@ -5,15 +5,11 @@
     "sourceMap": true,
     "outDir": "dist",
     "strict": true,
-    "noImplicitAny": true,
+    "noImplicitAny": false,
+    "esModuleInterop": true,
     "noImplicitReturns": true,
-    "allowSyntheticDefaultImports": true,
+    "allowSyntheticDefaultImports": true
   },
-  "include": [
-    "src/**/*.ts"
-  ],
-  "exclude": [
-    "src/**/*.spec.ts",
-    "node_modules"
-  ]
+  "include": ["src/**/*.ts"],
+  "exclude": ["src/**/*.spec.ts", "node_modules"]
 }
