@@ -5,7 +5,6 @@ import { Validations } from "../utils/validations/validations";
 
 const GroupRouter: Router = Router();
 
-// TODO: add validation wrap request
 GroupRouter.get(`/children/:id?`, BaseRequest.wrapAsync(GroupController.getByParentId));
 GroupRouter.get(`/`, Validations.isIdsBodyValid, BaseRequest.wrapAsync(GroupController.getManyById));
 GroupRouter.get(`/:id`, Validations.isIdParamValid, BaseRequest.wrapAsync(GroupController.getById));

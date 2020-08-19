@@ -1,4 +1,5 @@
 import * as express from "express";
+import * as morgan from "morgan";
 import * as bodyParser from "body-parser";
 import config from "./config";
 import { log } from "./utils/logger/logger";
@@ -14,7 +15,6 @@ export class Server {
   private constructor() {
     this.app = express();
 
-    // saveOSpikePublicKey(); TODO: check if nesscery
     this.initializeMiddlewares();
     this.initializeRouters();
     this.initializeErrorHandling();
@@ -29,7 +29,9 @@ export class Server {
     this.app.listen(config.server.port, () => {
       log(
         SeverityLevel.INFO,
-        `Server running in ${process.env.NODE_ENV || config.env.dev} environment on port ${config.server.port}`,
+        `Server running in ${
+          process.env.NODE_ENV || config.env.dev
+        } environment on port ${config.server.port}`,
         "connectedToServer"
       );
     });
@@ -39,6 +41,10 @@ export class Server {
     this.app.use(addHeaders);
     this.app.use(bodyParser.urlencoded({ extended: true }));
     this.app.use(bodyParser.json());
+
+    if (process.env.NODE_ENV === config.env.dev) {
+      this.app.use(morgan("dev"));
+    }
   }
 
   private initializeRouters() {

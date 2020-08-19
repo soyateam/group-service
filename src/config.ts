@@ -5,10 +5,11 @@ const config = {
     name: "Group-Service",
   },
   db: {
-    connectionString: `mongodb://${process.env.DB_SERVER || "mongo:27017/"}${process.env.DB_NAME || "groupDB"}${
+    connectionString: `mongodb://${
+      process.env.DB_USERAME && process.env.DB_PASSWORD ? `${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@` : ""
+    }${process.env.DB_SERVER || "mongo"}:${process.env.DB_PORT || 27017}/${process.env.DB_NAME || "groupDB"}${
       process.env.DB_REPLICA_NAME ? `?replicaSet=${process.env.DB_REPLICA_NAME}` : ""
     }`,
-    port: process.env.DB_PORT || 27017,
   },
   env: {
     prod: "prod",

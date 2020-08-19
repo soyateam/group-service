@@ -1,22 +1,21 @@
-version: '3.5'
+version: "3.5"
 services:
   group-service:
     container_name: group-service
     image: group-service:latest
     command: npm run dev:watch # Hot reload
     ports:
-      - '3000:3000'
+      - "3000:3000"
     build:
       context: .
       target: DEV
     volumes:
       - ./src:/usr/src/app/src # share src code with the containers
-    # environment:
+    environment:
+      - DB_SERVER=ds063789.mlab.com
+      - DB_NAME=groups
+      - DB_USERNAME=admin
+      - DB_PASSWORD=Aa123456
+      - DB_PORT=63789
+
     restart: always
-    depends_on:
-      - mongo
-    restart: always
-  mongo:
-    image: mongo:latest
-    ports:
-      - '27017:27017'

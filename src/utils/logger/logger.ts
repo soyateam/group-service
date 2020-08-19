@@ -4,22 +4,15 @@ import { SeverityLevel } from "./severityLevel";
 
 export const logger = winston.createLogger({
   defaultMeta: { service: config.server.name },
-  format: winston.format.combine(
-    winston.format.timestamp({ format: "YYYY-MM-DD HH:mm:ss" }),
-    winston.format.json()
-  ),
+  format: winston.format.combine(winston.format.timestamp({ format: "YYYY-MM-DD HH:mm:ss" }), winston.format.json()),
 });
 
+// Console handler
+logger.add(new winston.transports.Console());
 if (process.env.NODE_ENV !== config.env.prod) {
-  // Console handler
-  logger.add(new winston.transports.Console());
-} else {
   // File handler
   logger.configure({
-    level: "info",
-    transports: [
-      new winston.transports.File({ filename: "./logs/group/service.log" }),
-    ],
+    transports: [new winston.transports.File({ filename: "./logs/group/service.log" })],
   });
 }
 
@@ -41,8 +34,8 @@ export const log = (
   more?: object
 ) => {
   logger.log({
+    severity,
     name,
-    correlationId,
     user,
     level: severity,
     message: description,
