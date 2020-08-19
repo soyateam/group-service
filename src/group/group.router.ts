@@ -6,7 +6,7 @@ import { Validations } from "../utils/validations/validations";
 const GroupRouter: Router = Router();
 
 GroupRouter.get(`/children/:id?`, BaseRequest.wrapAsync(GroupController.getByParentId));
-GroupRouter.get(`/unit/:unitName`, BaseRequest.wrapAsync(GroupController.getUnitSums));
+GroupRouter.get(`/unit`, Validations.isUnitBodyValid, BaseRequest.wrapAsync(GroupController.getUnitSums));
 GroupRouter.get(`/`, Validations.isIdsBodyValid, BaseRequest.wrapAsync(GroupController.getManyById));
 GroupRouter.get(`/:id`, Validations.isIdParamValid, BaseRequest.wrapAsync(GroupController.getById));
 

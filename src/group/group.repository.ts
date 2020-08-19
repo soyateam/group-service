@@ -1,5 +1,4 @@
 import { GroupModel } from "./group.model";
-import { group } from "console";
 
 export class GroupRepository {
   static async getById(kartoffelID: string) {
@@ -22,26 +21,27 @@ export class GroupRepository {
     ).exec();
   }
 
-  static getUnitInfo(unitName: string) {
-    // const groupQuery = `"unitName": "$unitName"`;
-    // const groupQuery = unitName: "$unitName", peopleSum: { $sum: "$peopleSum" } };
+  static getUnitInfo(unitNames: [string]) {
     return GroupModel.aggregate([
-      { $match: { unitName } },
+      { $match: { unitName: { $in: unitNames } } },
       {
         $group: {
           _id: "$unitName",
           groupsCount: { $sum: 1 },
           peopleSum: { $sum: "$peopleSum" },
-          serviceType: {
-            $addToSet: { kevaSum: { $sum: "$serviceType.kevaSum" }, hovaSum: { $sum: "$serviceType.hovaSum" } },
-          },
-          rankType: {
-            $addToSet: {
-              aSum: { $sum: "$rankType.aSum" },
-              bSum: { $sum: "$rankType.bSum" },
-              cSum: { $sum: "$rankType.cSum" },
-            },
-          },
+          kevaSum: { $sum: "$serviceType.kevaSum" },
+          hovaSum: { $sum: "$serviceType.hovaSum" },
+          aSum: { $sum: "$rankType.aSum" },
+          bSum: { $sum: "$rankType.bSum" },
+          cSum: { $sum: "$rankType.cSum" },
+        },
+      },
+      {
+        $project: {
+          groupsCount: 1,
+          peopleSum: 1,
+          serviceType: { kevaSum: "$kevaSum", hovaSum: "$hovaSum" },
+          rankType: { aSum: "$aSum", bSum: "$bSum", cSum: "$cSum" },
         },
       },
     ]).exec();

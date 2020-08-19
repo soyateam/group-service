@@ -13,8 +13,8 @@ export class GroupManager {
     return GroupRepository.getMany(ids);
   }
 
-  static async getUnitInfo(unitName: string) {
-    return GroupRepository.getUnitInfo(unitName);
+  static async getUnitInfo(unitNames: [string]) {
+    return GroupRepository.getUnitInfo(unitNames);
   }
 
   static async updateCounter(id: string, isInc: boolean) {

@@ -46,11 +46,11 @@ export class GroupController {
   }
 
   static async getUnitSums(req: Request, res: Response) {
-    const { unitName } = req.params;
+    const { units } = req.body;
 
-    const updateGroup: IGroup | null = await GroupManager.getUnitInfo(unitName);
-    // if (!updateGroup) throw new ServerError("cant found update group");
+    const unitInfo: IGroup | null = await GroupManager.getUnitInfo(units);
+    if (!unitInfo) throw new ServerError("cant found unit info");
 
-    res.json(updateGroup);
+    res.json(unitInfo);
   }
 }
