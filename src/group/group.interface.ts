@@ -5,7 +5,7 @@ export interface IGroup {
   children: [string];
   isMador: boolean;
   parent: string;
-  unitName: string; // NOTE: or enums unit
+  unitName: string;
   peopleSum: number;
   serviceType: IServiceType;
   rankType: IRankType;

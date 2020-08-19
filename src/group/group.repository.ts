@@ -21,4 +21,29 @@ export class GroupRepository {
       { new: true }
     ).exec();
   }
+
+  static getUnitInfo(unitName: string) {
+    // const groupQuery = `"unitName": "$unitName"`;
+    // const groupQuery = unitName: "$unitName", peopleSum: { $sum: "$peopleSum" } };
+    return GroupModel.aggregate([
+      { $match: { unitName } },
+      {
+        $group: {
+          _id: "$unitName",
+          groupsCount: { $sum: 1 },
+          peopleSum: { $sum: "$peopleSum" },
+          serviceType: {
+            $addToSet: { kevaSum: { $sum: "$serviceType.kevaSum" }, hovaSum: { $sum: "$serviceType.hovaSum" } },
+          },
+          rankType: {
+            $addToSet: {
+              aSum: { $sum: "$rankType.aSum" },
+              bSum: { $sum: "$rankType.bSum" },
+              cSum: { $sum: "$rankType.cSum" },
+            },
+          },
+        },
+      },
+    ]).exec();
+  }
 }

@@ -9,11 +9,15 @@ export class GroupManager {
     return GroupRepository.getChildrenByParentId(pId);
   }
 
-  static async GetManyByIds(ids: [string]) {
+  static async getManyByIds(ids: [string]) {
     return GroupRepository.getMany(ids);
   }
 
-  static async UpdateCounter(id: string, isInc: boolean) {
+  static async getUnitInfo(unitName: string) {
+    return GroupRepository.getUnitInfo(unitName);
+  }
+
+  static async updateCounter(id: string, isInc: boolean) {
     const amountUpdate = isInc ? 1 : -1;
     return GroupRepository.updateById(id, amountUpdate);
   }

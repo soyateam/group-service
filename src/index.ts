@@ -5,11 +5,7 @@ import { connectToMongo } from "./utils/dbConnector";
 
 process.on("uncaughtException", (err: Error) => {
   console.error("Unhandled Exception", err.stack);
-  log(
-    SeverityLevel.ERROR,
-    "Unhandled Exception",
-    err.stack || "Unhandled Exception"
-  );
+  log(SeverityLevel.ERROR, "Unhandled Exception", err.stack || "Unhandled Exception");
   process.exit(1);
 });
 

@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { GroupManager } from "./group.manager";
 import { IGroup } from "./group.interface";
-import { GroupNotFound, IdInvalidError, QueryParamInvalidError } from "../utils/erros/userErrors";
+import { GroupNotFound, IdInvalidError } from "../utils/erros/userErrors";
 import { Validations } from "../utils/validations/validations";
 import config from "../config";
 import { ServerError } from "../utils/erros/errorTypes";
@@ -29,7 +29,7 @@ export class GroupController {
   static async getManyById(req: Request, res: Response) {
     const { ids } = req.body;
 
-    const groups: IGroup[] | [] = await GroupManager.GetManyByIds(ids);
+    const groups: IGroup[] | [] = await GroupManager.getManyByIds(ids);
     if (!groups) throw new ServerError("cant found groups");
 
     res.json(groups);
@@ -39,8 +39,17 @@ export class GroupController {
     const { id } = req.params;
     const { isCountGrow } = req.body;
 
-    const updateGroup: IGroup | null = await GroupManager.UpdateCounter(id, isCountGrow);
+    const updateGroup: IGroup | null = await GroupManager.updateCounter(id, isCountGrow);
     if (!updateGroup) throw new ServerError("cant found update group");
+
+    res.json(updateGroup);
+  }
+
+  static async getUnitSums(req: Request, res: Response) {
+    const { unitName } = req.params;
+
+    const updateGroup: IGroup | null = await GroupManager.getUnitInfo(unitName);
+    // if (!updateGroup) throw new ServerError("cant found update group");
 
     res.json(updateGroup);
   }

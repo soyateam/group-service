@@ -29,9 +29,7 @@ export class Server {
     this.app.listen(config.server.port, () => {
       log(
         SeverityLevel.INFO,
-        `Server running in ${
-          process.env.NODE_ENV || config.env.dev
-        } environment on port ${config.server.port}`,
+        `Server running in ${process.env.NODE_ENV || config.env.dev} environment on port ${config.server.port}`,
         "connectedToServer"
       );
     });
