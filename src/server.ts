@@ -1,6 +1,7 @@
 import * as express from "express";
 import * as morgan from "morgan";
 import * as bodyParser from "body-parser";
+import * as helmet from "helmet";
 import config from "./config";
 import { log } from "./utils/logger/logger";
 import { SeverityLevel } from "./utils/logger/severityLevel";
@@ -39,6 +40,7 @@ export class Server {
     this.app.use(addHeaders);
     this.app.use(bodyParser.urlencoded({ extended: true }));
     this.app.use(bodyParser.json());
+    this.app.use(helmet());
 
     if (process.env.NODE_ENV === config.env.dev) {
       this.app.use(morgan("dev"));
