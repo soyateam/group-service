@@ -1,6 +1,7 @@
 import * as winston from "winston";
 import config from "../../config";
 import { SeverityLevel } from "./severityLevel";
+import * as winstonDailyRotateFile from "winston-daily-rotate-file";
 
 export const logger = winston.createLogger({
   defaultMeta: { service: config.server.name },
@@ -9,8 +10,14 @@ export const logger = winston.createLogger({
 });
 
 if (process.env.NODE_ENV == config.env.prod) {
-  // File handler
-  logger.add(new winston.transports.File({ filename: "./logs/group/service.log" }));
+  logger.add(
+    new winstonDailyRotateFile({
+      level: SeverityLevel.INFO,
+      datePattern: "YYYY-MM-DD",
+      filename: process.env.LOG_FILE_NAME || `${config.server.name}-%DATE%.log`,
+      dirname: process.env.LOG_FILE_DIR || ".",
+    })
+  );
 }
 
 /**
