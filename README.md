@@ -31,10 +31,10 @@ The group entity will represent a single group.
 
 ## API
 
-| METHOD | ENDPOINT                   | DESCRIPTION                                                           | BODY                                                                            |
-| ------ | :------------------------- | :-------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
-| GET    | `/api/group/:id`           | Get group by kartoffel id                                             |                                                                                 |
-| GET    | `/api/group/children/:id?` | Get all children from parent id, if null get the first children level |                                                                                 |
-| POST   | `/api/group/`              | Get groups by kartoffel ids                                           | `ids: [kartoffelId]`                                                            |
-| POST   | `/api/group/unit`          | Get info about units by unit names                                    | `units: [String]`                                                               |
-| PUT    | `/api/group/:id`           | Update task count assigned by id                                      | `isCountGrow: Boolean` <br>(true for adding a task, false for unassigned task)` |
+| METHOD | ENDPOINT                   | DESCRIPTION                                                           | BODY                                                                               |
+| ------ | :------------------------- | :-------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| GET    | `/api/group/:id`           | Get group by kartoffel id                                             |                                                                                    |
+| GET    | `/api/group/children/:id?` | Get all children from parent id, if null get the first children level |                                                                                    |
+| POST   | `/api/group/`              | Get groups by kartoffel ids                                           | `ids: [kartoffelId]`                                                               |
+| POST   | `/api/group/unit`          | Get info about units by unit names                                    | `units: [String]`                                                                  |
+| PUT    | `/api/group/:id`           | Update task count assigned by id                                      | `isCountGrow: Boolean` <br>(true - for assigned task, false - for unassigned task) |

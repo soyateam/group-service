@@ -1,7 +1,7 @@
+import * as mongoose from "mongoose";
+import config from "../config";
 import { SeverityLevel } from "./logger/severityLevel";
 import { log } from "./logger/logger";
-import config from "../config";
-import * as mongoose from "mongoose";
 
 // TODO: make a singleton connection to DB
 export const connectToMongo = async () => {

@@ -2,12 +2,13 @@ import * as express from "express";
 import * as morgan from "morgan";
 import * as bodyParser from "body-parser";
 import * as helmet from "helmet";
+import * as errorhandlers from "./utils/erros/errorHandlers";
 import config from "./config";
+import addHeaders from "./utils/addHeaders";
+import appRouter from "./router";
 import { log } from "./utils/logger/logger";
 import { SeverityLevel } from "./utils/logger/severityLevel";
-import addHeaders from "./utils/addHeaders";
-import * as errorhandlers from "./utils/erros/errorHandlers";
-import appRouter from "./router";
+import { Authenticator } from "./utils/authenticator";
 
 export class Server {
   private static _instance: Server;
@@ -41,6 +42,11 @@ export class Server {
     this.app.use(bodyParser.urlencoded({ extended: true }));
     this.app.use(bodyParser.json());
     this.app.use(helmet());
+
+    if (config.authentication.required) {
+      this.app.use(Authenticator.initialize());
+      this.app.use(Authenticator.middleware);
+    }
 
     if (process.env.NODE_ENV === config.env.dev) {
       this.app.use(morgan("dev"));

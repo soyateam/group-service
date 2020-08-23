@@ -9,15 +9,17 @@ const config = {
       process.env.DB_USERNAME != undefined && process.env.DB_PASSWORD != undefined
         ? `${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@`
         : ""
-    }${process.env.DB_SERVER || "mongo"}:${process.env.DB_PORT || 27017}/${process.env.DB_NAME || "groupDB"}${
-      process.env.DB_REPLICA_NAME ? `?replicaSet=${process.env.DB_REPLICA_NAME}` : ""
-    }`,
+    }${process.env.DB_SERVER || "mongo"}:${process.env.DB_PORT || 27017}/${process.env.DB_NAME || "groupDB"}`,
   },
   env: {
     prod: "prod",
     dev: "dev",
   },
   RootAncestorId: process.env.ROOT_ANCESTOR_ID || "5e56858e4203fc40043591a5",
+  authentication: {
+    secret: process.env.AUTHENTICATION_SECRET || "iamsososecret!youcaneverguess",
+    required: process.env.AUTHENTICATION_REQUIRED || false,
+  },
 };
 
 export default config;

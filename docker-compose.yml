@@ -9,6 +9,7 @@ services:
       - ./logs:/usr/src/app/logs
     environment:
       - LOG_FILE_DIR=logs
+      - AUTHENTICATION_REQUIRED=true
     depends_on:
       - mongo
     restart: always

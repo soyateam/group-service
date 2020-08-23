@@ -1,9 +1,9 @@
+import config from "../config";
 import { Request, Response } from "express";
 import { GroupManager } from "./group.manager";
 import { IGroup } from "./group.interface";
 import { GroupNotFound, IdInvalidError } from "../utils/erros/userErrors";
 import { Validations } from "../utils/validations/validations";
-import config from "../config";
 import { ServerError } from "../utils/erros/errorTypes";
 
 export class GroupController {
