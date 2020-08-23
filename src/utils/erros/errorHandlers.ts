@@ -16,10 +16,11 @@ export const userErrorHandler = (
       `${error.name} was thrown with status ${error.status} and message ${error.message}`,
       ""
     );
-    return res.status(error.status).send({
+    res.status(error.status).send({
       type: error.name,
       message: error.message,
     });
+    next();
   } else {
     next(error);
   }
@@ -38,10 +39,11 @@ export const serverErrorHandler = (
       `${error.name} was thrown with status ${error.status} and message ${error.message}`,
       ""
     );
-    return res.status(error.status).send({
+    res.status(error.status).send({
       type: error.name,
       message: error.message,
     });
+    next();
   } else {
     next(error);
   }
@@ -60,8 +62,9 @@ export function unknownErrorHandler(
     ""
   );
 
-  return res.status(500).send({
+  res.status(500).send({
     type: error.name,
     message: error.message,
   });
+  next(error);
 }

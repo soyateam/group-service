@@ -1,14 +1,14 @@
-import * as express from "express";
-import * as morgan from "morgan";
-import * as bodyParser from "body-parser";
-import * as helmet from "helmet";
+import express from "express";
+import morgan from "morgan";
+import bodyParser from "body-parser";
+import helmet from "helmet";
 import * as errorhandlers from "./utils/erros/errorHandlers";
 import config from "./config";
 import addHeaders from "./utils/addHeaders";
 import appRouter from "./router";
 import { log } from "./utils/logger/logger";
 import { SeverityLevel } from "./utils/logger/severityLevel";
-import { Authenticator } from "./utils/authenticator";
+import { Authenticator } from "./utils/auth/authenticator";
 
 export class Server {
   private static _instance: Server;

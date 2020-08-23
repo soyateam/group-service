@@ -1,12 +1,12 @@
 import * as passport from "passport";
 import * as passportJwt from "passport-jwt";
-import config from "../config";
+import config from "../../config";
 import { Request, Response, NextFunction } from "express";
 
 export class Authenticator {
   private static readonly jwtOptions: passportJwt.StrategyOptions = {
     jwtFromRequest: passportJwt.ExtractJwt.fromAuthHeaderAsBearerToken(),
-    secretOrKey: config.authentication.secret,
+    secretOrKey: config.authentication.key,
   };
 
   public static initialize(verifyCallback?: passportJwt.VerifiedCallback) {

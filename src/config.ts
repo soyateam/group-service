@@ -17,7 +17,7 @@ const config = {
   },
   RootAncestorId: process.env.ROOT_ANCESTOR_ID || "5e56858e4203fc40043591a5",
   authentication: {
-    secret: process.env.AUTHENTICATION_SECRET || "iamsososecret!youcaneverguess",
+    key: process.env.AUTHENTICATION_PUBLIC_KEY || "publickey",
     required: process.env.AUTHENTICATION_REQUIRED || false,
   },
 };

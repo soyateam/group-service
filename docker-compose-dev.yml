@@ -2,7 +2,7 @@ version: "3.5"
 services:
   group-service:
     image: group-service:latest
-    command: npm run dev:watch
+    command: npm run dev
     ports:
       - "3000:3000"
     build:
@@ -11,6 +11,7 @@ services:
     volumes:
       - ./src:/usr/src/app/src
     environment:
+      - PORT=3000
       - DB_SERVER=ds063789.mlab.com
       - DB_NAME=groups
       - DB_USERNAME=admin

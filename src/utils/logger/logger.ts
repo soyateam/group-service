@@ -1,7 +1,7 @@
 import * as winston from "winston";
+import winstonDailyRotateFile from "winston-daily-rotate-file";
 import config from "../../config";
 import { SeverityLevel } from "./severityLevel";
-import * as winstonDailyRotateFile from "winston-daily-rotate-file";
 
 export const logger = winston.createLogger({
   defaultMeta: { service: config.server.name },
