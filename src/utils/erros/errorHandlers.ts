@@ -1,4 +1,4 @@
-import * as express from "express";
+import express from "express";
 import { ServerError, UserError } from "./errorTypes";
 import { log } from "../logger/logger";
 import { SeverityLevel } from "../logger/severityLevel";
@@ -20,7 +20,6 @@ export const userErrorHandler = (
       type: error.name,
       message: error.message,
     });
-    next();
   } else {
     next(error);
   }
@@ -43,7 +42,6 @@ export const serverErrorHandler = (
       type: error.name,
       message: error.message,
     });
-    next();
   } else {
     next(error);
   }
@@ -66,5 +64,4 @@ export function unknownErrorHandler(
     type: error.name,
     message: error.message,
   });
-  next(error);
 }

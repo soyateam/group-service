@@ -5,11 +5,11 @@ import { Validations } from "../utils/validations/validations";
 
 const GroupRouter: Router = Router();
 
-GroupRouter.get(`/children/:id?`, BaseRequest.wrapAsync(GroupController.getByParentId));
+GroupRouter.get(`/children/:id?`, BaseRequest.wrapAsync(GroupController.getChildrenByParentId));
 GroupRouter.get(`/:id`, Validations.isIdParamValid, BaseRequest.wrapAsync(GroupController.getById));
 
-GroupRouter.post(`/unit`, Validations.isUnitBodyValid, BaseRequest.wrapAsync(GroupController.getUnitSums));
-GroupRouter.post(`/`, Validations.isIdsBodyValid, BaseRequest.wrapAsync(GroupController.getManyById));
+GroupRouter.post(`/unit`, Validations.isUnitBodyValid, BaseRequest.wrapAsync(GroupController.getUnitsSums));
+GroupRouter.post(`/`, Validations.isIdsBodyValid, BaseRequest.wrapAsync(GroupController.getManyByIds));
 
 GroupRouter.put(
   `/:id`,

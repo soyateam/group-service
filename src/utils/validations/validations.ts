@@ -35,8 +35,8 @@ export class Validations {
   }
 
   static isUnitBodyValid(req: Request, res: Response, next: NextFunction) {
-    const { units } = req.body;
-    if (!units) next(new QueryParamInvalidError("please enter units array"));
+    const { unitsNames } = req.body;
+    if (!unitsNames) next(new QueryParamInvalidError("please enter units array"));
 
     next();
   }

@@ -18,6 +18,12 @@ export class GroupNotFound extends UserError {
   }
 }
 
+export class UnitNotFound extends UserError {
+  constructor(message = "Unit not found") {
+    super(message, 404);
+  }
+}
+
 export class AuthenticationError extends UserError {
   constructor(message = "Authentication Error") {
     super(message, 401);

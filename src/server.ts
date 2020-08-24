@@ -8,7 +8,6 @@ import addHeaders from "./utils/addHeaders";
 import appRouter from "./router";
 import { log } from "./utils/logger/logger";
 import { SeverityLevel } from "./utils/logger/severityLevel";
-import { Authenticator } from "./utils/auth/authenticator";
 
 export class Server {
   private static _instance: Server;
@@ -31,7 +30,7 @@ export class Server {
     this.app.listen(config.server.port, () => {
       log(
         SeverityLevel.INFO,
-        `Server running in ${process.env.NODE_ENV || config.env.dev} environment on port ${config.server.port}`,
+        `Server running in ${config.env.node} environment on port ${config.server.port}`,
         "connectedToServer"
       );
     });
@@ -43,12 +42,7 @@ export class Server {
     this.app.use(bodyParser.json());
     this.app.use(helmet());
 
-    if (config.authentication.required) {
-      this.app.use(Authenticator.initialize());
-      this.app.use(Authenticator.middleware);
-    }
-
-    if (process.env.NODE_ENV === config.env.dev) {
+    if (config.env.node === config.env.dev) {
       this.app.use(morgan("dev"));
     }
   }
@@ -59,7 +53,7 @@ export class Server {
 
   private initializeErrorHandling() {
     this.app.use(errorhandlers.serverErrorHandler);
-    this.app.use(errorhandlers.unknownErrorHandler);
     this.app.use(errorhandlers.userErrorHandler);
+    this.app.use(errorhandlers.unknownErrorHandler);
   }
 }

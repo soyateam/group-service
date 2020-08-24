@@ -1,4 +1,4 @@
-import * as mongoose from "mongoose";
+import mongoose from "mongoose";
 import { IGroup } from "./group.interface";
 
 const { Schema } = mongoose;
@@ -77,6 +77,6 @@ const groupSchema = new Schema({
   },
 });
 
-groupSchema.virtual("childrens", { ref: "group", localField: "children", foreignField: "kartoffelID" });
+groupSchema.virtual("childrenGroup", { ref: "group", localField: "children", foreignField: "kartoffelID" });
 
 export const GroupModel = mongoose.model<IGroup & mongoose.Document>("group", groupSchema);

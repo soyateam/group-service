@@ -14,6 +14,7 @@ const config = {
   env: {
     prod: "prod",
     dev: "dev",
+    node: process.env.NODE_ENV || "dev",
   },
   RootAncestorId: process.env.ROOT_ANCESTOR_ID || "5e56858e4203fc40043591a5",
   authentication: {

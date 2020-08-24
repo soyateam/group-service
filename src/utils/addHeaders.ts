@@ -1,4 +1,4 @@
-import * as express from "express";
+import express from "express";
 
 const addHeaders = (req: express.Request, res: express.Response, next: express.NextFunction) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -9,6 +9,7 @@ const addHeaders = (req: express.Request, res: express.Response, next: express.N
   if (req.method === "OPTIONS") {
     return res.status(200).end();
   }
+
   return next();
 };
 

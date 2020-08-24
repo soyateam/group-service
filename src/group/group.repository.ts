@@ -1,16 +1,12 @@
 import { GroupModel } from "./group.model";
 
 export class GroupRepository {
-  static async getById(kartoffelID: string) {
+  static getById(kartoffelID: string) {
     return GroupModel.findOne({ kartoffelID }).exec();
   }
 
-  static getMany(ids: [string]) {
-    return GroupModel.find({ kartoffelID: { $in: ids } }).exec();
-  }
-
   static getChildrenByParentId(pId: string) {
-    return GroupModel.findOne({ kartoffelID: pId }).populate("childrens").exec();
+    return GroupModel.findOne({ kartoffelID: pId }).populate("childrenGroup").exec();
   }
 
   static updateById(id: string, amountChange: number) {
@@ -21,9 +17,9 @@ export class GroupRepository {
     ).exec();
   }
 
-  static getUnitInfo(unitNames: [string]) {
+  static getUnitInfo(unitName: string) {
     return GroupModel.aggregate([
-      { $match: { unitName: { $in: unitNames } } },
+      { $match: { unitName } },
       {
         $group: {
           _id: "$unitName",
@@ -36,6 +32,7 @@ export class GroupRepository {
           cSum: { $sum: "$rankType.cSum" },
         },
       },
+      { $limit: 1 },
       {
         $project: {
           groupsCount: 1,

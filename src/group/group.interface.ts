@@ -10,7 +10,7 @@ export interface IGroup {
   serviceType: IServiceType;
   rankType: IRankType;
   assignedCount: number;
-  childrens: [IGroup];
+  childrenGroup: [IGroup];
 }
 
 export interface IServiceType {

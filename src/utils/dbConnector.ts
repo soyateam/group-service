@@ -1,4 +1,4 @@
-import * as mongoose from "mongoose";
+import mongoose from "mongoose";
 import config from "../config";
 import { SeverityLevel } from "./logger/severityLevel";
 import { log } from "./logger/logger";

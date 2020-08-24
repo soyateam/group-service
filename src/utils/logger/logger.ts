@@ -1,4 +1,4 @@
-import * as winston from "winston";
+import winston from "winston";
 import winstonDailyRotateFile from "winston-daily-rotate-file";
 import config from "../../config";
 import { SeverityLevel } from "./severityLevel";
@@ -9,7 +9,7 @@ export const logger = winston.createLogger({
   transports: [new winston.transports.Console()],
 });
 
-if (process.env.NODE_ENV == config.env.prod) {
+if (config.env.node == config.env.prod) {
   logger.add(
     new winstonDailyRotateFile({
       level: SeverityLevel.INFO,
