@@ -1,5 +1,5 @@
-import mongoose from "mongoose";
-import { IGroup } from "./group.interface";
+import mongoose from 'mongoose';
+import { IGroup } from './group.interface';
 
 const { Schema } = mongoose;
 
@@ -77,6 +77,8 @@ const groupSchema = new Schema({
   },
 });
 
-groupSchema.virtual("childrenGroup", { ref: "group", localField: "children", foreignField: "kartoffelID" });
+// Virtual populate, we need to use this way because we populated children not by their mongo _id, but by the kartoffelID
+// populate from group schema (ref) from localfield children
+groupSchema.virtual('childrenPopulated', { ref: 'group', localField: 'children', foreignField: 'kartoffelID' });
 
-export const GroupModel = mongoose.model<IGroup & mongoose.Document>("group", groupSchema);
+export const GroupModel = mongoose.model<IGroup & mongoose.Document>('group', groupSchema);

@@ -1,12 +1,12 @@
-import { Types } from "mongoose";
-import { Request, Response, NextFunction } from "express";
-import { IdInvalidError, QueryParamInvalidError } from "../erros/userErrors";
+import { Types } from 'mongoose';
+import { Request, Response, NextFunction } from 'express';
+import { IdInvalidError, QueryParamInvalidError } from '../erros/userErrors';
 
 export class Validations {
   static IsTaskGrowValid(req: Request, res: Response, next: NextFunction) {
     const { isCountGrow } = req.body;
-    if (isCountGrow == undefined || typeof isCountGrow != "boolean")
-      next(new QueryParamInvalidError("enter a valid count grow"));
+    if (isCountGrow == undefined || typeof isCountGrow != 'boolean')
+      next(new QueryParamInvalidError('enter a valid count grow'));
     next();
   }
 
@@ -19,16 +19,16 @@ export class Validations {
     if (Validations.isIdValid(id)) {
       next();
     } else {
-      next(new IdInvalidError());
+      next(new IdInvalidError(id));
     }
   }
 
   static isIdsBodyValid(req: Request, res: Response, next: NextFunction) {
     const { ids } = req.body;
-    if (!ids) next(new QueryParamInvalidError("please enter ids array"));
+    if (!ids) next(new QueryParamInvalidError('please enter ids array'));
 
     ids.forEach((id: string) => {
-      if (!Validations.isIdValid(id)) next(new IdInvalidError("there is invalid id"));
+      if (!Validations.isIdValid(id)) next(new IdInvalidError(id));
     });
 
     next();
@@ -36,7 +36,7 @@ export class Validations {
 
   static isUnitBodyValid(req: Request, res: Response, next: NextFunction) {
     const { unitsNames } = req.body;
-    if (!unitsNames) next(new QueryParamInvalidError("please enter units array"));
+    if (!unitsNames) next(new QueryParamInvalidError('please enter units array'));
 
     next();
   }

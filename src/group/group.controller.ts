@@ -1,25 +1,22 @@
-import config from "../config";
-import { Request, Response } from "express";
-import { GroupManager } from "./group.manager";
-import { IGroup } from "./group.interface";
-import { GroupNotFound, IdInvalidError, UnitNotFound } from "../utils/erros/userErrors";
-import { Validations } from "../utils/validations/validations";
-import { ServerError } from "../utils/erros/errorTypes";
-import { IResponseUnitSums, IResponseGetByMany } from "../response/response.interface";
-
-const groupNotFoundMsg = "Group not found";
+import config from '../config';
+import { Request, Response } from 'express';
+import { GroupManager } from './group.manager';
+import { IGroup } from './group.interface';
+import { GroupNotFound, IdInvalidError } from '../utils/erros/userErrors';
+import { Validations } from '../utils/validations/validations';
+import { IResponseUnitSums, IResponseGetByMany } from '../response/response.interface';
 
 export class GroupController {
   /**
    * Gets group by id
    * @param req - Express Request with param of group id
-   * @param res - Express Response
+   * @param res - Express Response, returns the group
    */
   static async getById(req: Request, res: Response) {
     const { id } = req.params;
 
     const group: IGroup | null = await GroupManager.getById(id);
-    if (!group) throw new GroupNotFound(`${groupNotFoundMsg}, id: ${id}`);
+    if (!group) throw new GroupNotFound(id);
 
     res.json(group);
   }
@@ -27,13 +24,12 @@ export class GroupController {
   /**
    * Get groups by array of ids
    * @param req - Express Request with body of groups ids array
-   * @param res - Express Response
+   * @param res - Express Response, returns IResponseGetByMany (arrays of group and array of not found groups)
    */
   static async getManyByIds(req: Request, res: Response) {
     const { ids } = req.body;
 
     const groups: IResponseGetByMany = await GroupManager.getManyByIds(ids);
-    if (!groups) throw new ServerError("can`t find groups");
 
     res.json(groups);
   }
@@ -41,29 +37,29 @@ export class GroupController {
   /**
    * Gets children by the parent id
    * @param req - Express Request with param of parent id or null (and the we set the parent id to be the root ancestor id)
-   * @param res - Express Response
+   * @param res - Express Response,  returns array of group
    */
   static async getChildrenByParentId(req: Request, res: Response) {
     const pId = req.params.id ? req.params.id : config.RootAncestorId;
-    if (!Validations.isIdValid(pId)) throw new IdInvalidError();
+    if (!Validations.isIdValid(pId)) throw new IdInvalidError(pId);
 
     const group: IGroup | null = await GroupManager.getByParentId(pId);
-    if (!group) throw new GroupNotFound(`${groupNotFoundMsg}, id: ${pId}`);
+    if (!group) throw new GroupNotFound(pId);
 
-    res.json(group.childrenGroup);
+    res.json(group.childrenPopulated);
   }
 
   /**
    * Assign/Unassigned task for group (unassigned decrease the counter and assigned increase the counter by one)
    * @param req - Express Request with group id param and boolean isCountGrow (true for increasing, false for decreasing)
-   * @param res - Express Response
+   * @param res - Express Response, returns the updated group
    */
   static async updateCounter(req: Request, res: Response) {
     const { id } = req.params;
     const { isCountGrow } = req.body;
 
     const updateGroup: IGroup | null = await GroupManager.updateCounter(id, isCountGrow);
-    if (!updateGroup) throw new GroupNotFound(`${groupNotFoundMsg}, id: ${id}`);
+    if (!updateGroup) throw new GroupNotFound(id);
 
     res.json(updateGroup);
   }
@@ -71,13 +67,12 @@ export class GroupController {
   /**
    * Get units info sums by units names
    * @param req - Express Request with body of units names array
-   * @param res - Express Response
+   * @param res - Express Response, returns IResponseUnitSums (arrays of units and array notFound unit names)
    */
   static async getUnitsSums(req: Request, res: Response) {
     const { unitsNames } = req.body;
 
     const unitInfo: IResponseUnitSums = await GroupManager.getUnitsInfo(unitsNames);
-    if (!unitInfo) throw new ServerError("can`t find units");
 
     res.json(unitInfo);
   }
