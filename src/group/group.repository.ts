@@ -1,4 +1,4 @@
-import { GroupModel } from "./group.model";
+import { GroupModel } from './group.model';
 
 export class GroupRepository {
   static getById(kartoffelID: string) {
@@ -6,7 +6,7 @@ export class GroupRepository {
   }
 
   static getChildrenByParentId(pId: string) {
-    return GroupModel.findOne({ kartoffelID: pId }).populate("childrenGroup").exec();
+    return GroupModel.findOne({ kartoffelID: pId }).populate('childrenPopulated').exec();
   }
 
   static updateById(id: string, amountChange: number) {
@@ -22,14 +22,14 @@ export class GroupRepository {
       { $match: { unitName } },
       {
         $group: {
-          _id: "$unitName",
+          _id: '$unitName',
           groupsCount: { $sum: 1 },
-          peopleSum: { $sum: "$peopleSum" },
-          kevaSum: { $sum: "$serviceType.kevaSum" },
-          hovaSum: { $sum: "$serviceType.hovaSum" },
-          aSum: { $sum: "$rankType.aSum" },
-          bSum: { $sum: "$rankType.bSum" },
-          cSum: { $sum: "$rankType.cSum" },
+          peopleSum: { $sum: '$peopleSum' },
+          kevaSum: { $sum: '$serviceType.kevaSum' },
+          hovaSum: { $sum: '$serviceType.hovaSum' },
+          aSum: { $sum: '$rankType.aSum' },
+          bSum: { $sum: '$rankType.bSum' },
+          cSum: { $sum: '$rankType.cSum' },
         },
       },
       { $limit: 1 },
@@ -37,8 +37,8 @@ export class GroupRepository {
         $project: {
           groupsCount: 1,
           peopleSum: 1,
-          serviceType: { kevaSum: "$kevaSum", hovaSum: "$hovaSum" },
-          rankType: { aSum: "$aSum", bSum: "$bSum", cSum: "$cSum" },
+          serviceType: { kevaSum: '$kevaSum', hovaSum: '$hovaSum' },
+          rankType: { aSum: '$aSum', bSum: '$bSum', cSum: '$cSum' },
         },
       },
     ]).exec();
