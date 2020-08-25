@@ -19,12 +19,17 @@ The group entity will represent a single group.
     peopleSum: Number,
     serviceType: {
         kevaSum: Number,
-        hovaSum: Number
+        hovaSum: Number,
+        miluimSum: Number,
+        civilianSum: Number
     },
     rankType: {
         aSum: Number,
         bSum: Number,
-        cSum: Number
+        cSum: Number,
+        hovaSum: Number,
+        miluimSum: Number,
+        civilianSum: Number
     },
     assignedCount: Number // assigned tasks
 ```
