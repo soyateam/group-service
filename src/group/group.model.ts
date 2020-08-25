@@ -52,6 +52,16 @@ const groupSchema = new Schema({
       default: 0,
       required: true,
     },
+    miluimSum: {
+      type: Number,
+      default: 0,
+      required: true,
+    },
+    civilianSum: {
+      type: Number,
+      default: 0,
+      required: true,
+    },
   },
   rankType: {
     aSum: {
@@ -65,6 +75,21 @@ const groupSchema = new Schema({
       required: true,
     },
     cSum: {
+      type: Number,
+      default: 0,
+      required: true,
+    },
+    hovaSum: {
+      type: Number,
+      default: 0,
+      required: true,
+    },
+    miluimSum: {
+      type: Number,
+      default: 0,
+      required: true,
+    },
+    civilianSum: {
       type: Number,
       default: 0,
       required: true,

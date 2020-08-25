@@ -16,10 +16,15 @@ export interface IGroup {
 export interface IServiceType {
   kevaSum: number;
   hovaSum: number;
+  miluimSum: number;
+  civilianSum: number;
 }
 
 export interface IRankType {
   aSum: number;
   bSum: number;
   cSum: number;
+  hovaSum: number;
+  miluimSum: number;
+  civilianSum: number;
 }
