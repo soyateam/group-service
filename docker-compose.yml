@@ -9,6 +9,8 @@ services:
       - ./logs:/usr/src/app/logs
     environment:
       - LOG_FILE_DIR=logs
+      - ALLOWED_ORIGIN=http://localhost:3003
+      - MONGO_CONNECTION_STRING=mongodb://mongo:27017
     depends_on:
       - mongo
     restart: always

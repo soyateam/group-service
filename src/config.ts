@@ -13,6 +13,9 @@ const config = {
     node: process.env.NODE_ENV || 'dev',
   },
   RootAncestorId: process.env.ROOT_ANCESTOR_ID || '5e56858e4203fc40043591a5',
+  cors: {
+    allowedOrigin: process.env.ALLOWED_ORIGIN || '*',
+  },
 };
 
 export default config;
