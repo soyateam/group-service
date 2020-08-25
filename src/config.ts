@@ -14,7 +14,7 @@ const config = {
   },
   RootAncestorId: process.env.ROOT_ANCESTOR_ID || '5e56858e4203fc40043591a5',
   cors: {
-    allowedOrigin: process.env.ALLOWED_ORIGIN || 'http://localhost:3003',
+    allowedOrigin: process.env.ALLOWED_ORIGIN || '*',
   },
 };
 
