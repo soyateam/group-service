@@ -5,7 +5,7 @@ const config = {
     name: 'group-Service',
   },
   db: {
-    connectionString: `mongodb://${process.env.MONGO_CONNECTION_STRING}/${process.env.GROUP_DB_NAME}`,
+    connectionString: process.env.MONGO_CONNECTION_STRING || 'mongodb://mongo:27017',
   },
   env: {
     prod: 'prod',
