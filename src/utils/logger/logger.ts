@@ -1,23 +1,28 @@
-import winston from "winston";
-import winstonDailyRotateFile from "winston-daily-rotate-file";
-import config from "../../config";
-import { SeverityLevel } from "./severityLevel";
+import winston from 'winston';
+import config from '../../config';
+import { SeverityLevel } from './severityLevel';
+import { MongoDB } from 'winston-mongodb';
 
 export const logger = winston.createLogger({
-  defaultMeta: { service: config.server.name },
-  format: winston.format.combine(winston.format.timestamp({ format: "YYYY-MM-DD HH:mm:ss" }), winston.format.json()),
+  format: winston.format.combine(
+    winston.format.metadata(),
+    winston.format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
+    winston.format.json()
+  ),
   transports: [new winston.transports.Console()],
 });
 
 if (config.env.node == config.env.prod) {
-  logger.add(
-    new winstonDailyRotateFile({
-      level: SeverityLevel.INFO,
-      datePattern: "YYYY-MM-DD",
-      filename: process.env.LOG_FILE_NAME || `${config.server.name}-%DATE%.log`,
-      dirname: process.env.LOG_FILE_DIR || ".",
-    })
-  );
+  let mongoLogger = new MongoDB({
+    level: SeverityLevel.INFO,
+    label: config.server.name,
+    collection: config.db.logs.collectionName,
+    db: config.db.logs.connectionStringLogs,
+    expireAfterSeconds: config.db.logs.expiredInSec,
+    tryReconnect: true,
+  });
+
+  logger.add(mongoLogger);
 }
 
 /**
@@ -38,11 +43,11 @@ export const log = (
   more?: object
 ) => {
   logger.log({
-    name,
+    name: description,
     correlationId,
-    user,
+    user: user,
     level: severity,
-    message: description,
+    message: name,
     ...more,
   });
 };
