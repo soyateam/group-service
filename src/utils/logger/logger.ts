@@ -16,7 +16,7 @@ if (config.env.node == config.env.prod) {
   let mongoLogger = new MongoDB({
     level: SeverityLevel.INFO,
     label: config.server.name,
-    collection: config.db.logs.collectionName,
+    collection: `${config.server.name}-log`,
     db: config.db.logs.connectionStringLogs,
     expireAfterSeconds: config.db.logs.expiredInSec,
     tryReconnect: true,

@@ -9,7 +9,6 @@ const config = {
     logs: {
       connectionStringLogs:
         process.env.MONGO_CONNECTION_STRING_LOGS || 'mongodb://admin:Aa123456@ds063789.mlab.com:63789/groups',
-      collectionName: process.env.MONGO_COLLECTION_NANE_GROUP || 'group-service-log',
       expiredInSec: 2592000, // 30 days
     },
   },
