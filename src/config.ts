@@ -2,7 +2,7 @@ const config = {
   apiPrefix: '/api',
   server: {
     port: process.env.PORT || 3000,
-    name: 'group-Service',
+    name: 'group-service',
   },
   db: {
     connectionString: process.env.MONGO_CONNECTION_STRING || 'mongodb://mongo:27017',
