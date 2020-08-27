@@ -19,7 +19,7 @@ if (config.env.node == config.env.prod) {
     collection: `${config.server.name}-log`,
     db: config.db.logs.connectionStringLogs,
     expireAfterSeconds: config.db.logs.expiredInSec,
-    tryReconnect: true,
+    tryReconnect: false,
   });
 
   logger.add(mongoLogger);
