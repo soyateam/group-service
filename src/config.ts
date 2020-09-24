@@ -17,7 +17,7 @@ const config = {
     node: process.env.NODE_ENV || 'dev',
   },
 
-  RootAncestorId: process.env.ROOT_ANCESTOR_ID || '5f44bd02c532d1bca5fd48bb',
+  RootAncestorId: process.env.ROOT_ANCESTOR_ID || '5db805a8216dad5ed3b9efbf',
 };
 
 export default config;
