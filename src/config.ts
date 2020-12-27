@@ -18,6 +18,9 @@ const config = {
   },
 
   RootAncestorId: process.env.ROOT_ANCESTOR_ID || '5db805a8216dad5ed3b9efbf',
+
+  // Current date field value
+  CURRENT_DATE_VALUE: 'CURRENT_DATE',
 };
 
 export default config;

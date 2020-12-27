@@ -11,6 +11,7 @@ export interface IGroup {
   rankType: IRankType;
   assignedCount: number;
   childrenPopulated: [IGroup];
+  date: string;
 }
 
 export interface IServiceType {

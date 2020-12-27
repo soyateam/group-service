@@ -1,21 +1,22 @@
 import { GroupRepository } from "./group.repository";
 import { IResponseGetByMany, IResponseUnitSums, IUnit } from "../response/response.interface";
 import { IGroup } from "./group.interface";
+import config from '../config';
 
 export class GroupManager {
-  static getById(id: string) {
-    return GroupRepository.getById(id);
+  static getById(id: string, dateFilter: string = config.CURRENT_DATE_VALUE) {
+    return GroupRepository.getById(id, dateFilter);
   }
 
-  static getByParentId(pId: string) {
-    return GroupRepository.getChildrenByParentId(pId);
+  static getByParentId(pId: string, dateFilter: string = config.CURRENT_DATE_VALUE) {
+    return GroupRepository.getChildrenByParentId(pId, dateFilter);
   }
 
-  static async getManyByIds(ids: [string]) {
+  static async getManyByIds(ids: [string], dateFilter: string = config.CURRENT_DATE_VALUE) {
     let response: IResponseGetByMany = { groups: [], notFound: [] };
     await Promise.all(
       ids.map(async (id) => {
-        const group: IGroup | null = await GroupRepository.getById(id);
+        const group: IGroup | null = await GroupRepository.getById(id, dateFilter);
         group ? response.groups.push(group) : response.notFound.push(id);
       })
     );
@@ -23,11 +24,11 @@ export class GroupManager {
     return response;
   }
 
-  static async getUnitsInfo(unitNames: [string]) {
+  static async getUnitsInfo(unitNames: [string], dateFilter: string = config.CURRENT_DATE_VALUE) {
     let response: IResponseUnitSums = { units: [], notFound: [] };
     await Promise.all(
       unitNames.map(async (unitName) => {
-        const unit: IUnit[] = await GroupRepository.getUnitInfo(unitName);
+        const unit: IUnit[] = await GroupRepository.getUnitInfo(unitName, dateFilter);
         unit.length > 0 ? response.units.push(unit[0]) : response.notFound.push(unitName);
       })
     );

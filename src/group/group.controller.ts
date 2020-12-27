@@ -14,8 +14,9 @@ export class GroupController {
    */
   static async getById(req: Request, res: Response) {
     const { id } = req.params;
+    const dateFilter = req.query.date as string || config.CURRENT_DATE_VALUE;
 
-    const group: IGroup | null = await GroupManager.getById(id);
+    const group: IGroup | null = await GroupManager.getById(id, dateFilter);
     if (!group) throw new GroupNotFound(id);
 
     res.json(group);
@@ -28,8 +29,9 @@ export class GroupController {
    */
   static async getManyByIds(req: Request, res: Response) {
     const { ids } = req.body;
+    const dateFilter = req.query.date as string || config.CURRENT_DATE_VALUE;
 
-    const groups: IResponseGetByMany = await GroupManager.getManyByIds(ids);
+    const groups: IResponseGetByMany = await GroupManager.getManyByIds(ids, dateFilter);
 
     res.json(groups);
   }
@@ -41,9 +43,12 @@ export class GroupController {
    */
   static async getChildrenByParentId(req: Request, res: Response) {
     const pId = req.params.id ? req.params.id : config.RootAncestorId;
+    const dateFilter = req.query.date as string || config.CURRENT_DATE_VALUE;
+    console.log(dateFilter);
+
     if (!Validations.isIdValid(pId)) throw new IdInvalidError(pId);
 
-    const group: IGroup | null = await GroupManager.getByParentId(pId);
+    const group: IGroup | null = await GroupManager.getByParentId(pId, dateFilter);
     if (!group) throw new GroupNotFound(pId);
 
     res.json(group.childrenPopulated);
@@ -71,8 +76,9 @@ export class GroupController {
    */
   static async getUnitsSums(req: Request, res: Response) {
     const { unitsNames } = req.body;
+    const dateFilter = req.query.date as string || config.CURRENT_DATE_VALUE;
 
-    const unitInfo: IResponseUnitSums = await GroupManager.getUnitsInfo(unitsNames);
+    const unitInfo: IResponseUnitSums = await GroupManager.getUnitsInfo(unitsNames, dateFilter);
 
     res.json(unitInfo);
   }
