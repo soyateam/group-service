@@ -1,4 +1,4 @@
-import { IGroup, IServiceType, IRankType } from '../group/group.interface';
+import { IGroup, IServiceType, IRankType } from "../group/group.interface";
 
 export interface IResponseGetByMany {
   groups: IGroup[];
