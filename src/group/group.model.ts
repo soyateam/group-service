@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import { IGroup } from './group.interface';
+import config from '../config';
 
 const { Schema } = mongoose;
 
@@ -11,7 +12,7 @@ const groupSchema = new Schema({
   kartoffelID: {
     type: String,
     required: true,
-    unique: true,
+    // unique: true,
   },
   parent: {
     type: String,
@@ -40,6 +41,9 @@ const groupSchema = new Schema({
     type: Number,
     default: 0,
     required: true,
+  },
+  hierarchy: {
+    type: [String],
   },
   serviceType: {
     kevaSum: {
@@ -100,10 +104,17 @@ const groupSchema = new Schema({
     default: 0,
     required: true,
   },
+  date: {
+    type: String,
+    default: config.CURRENT_DATE_VALUE,
+  },
 });
 
 // Virtual populate, we need to use this way because we populated children not by their mongo _id, but by the kartoffelID
 // populate from group schema (ref) from localfield children
 groupSchema.virtual('childrenPopulated', { ref: 'group', localField: 'children', foreignField: 'kartoffelID' });
+
+// Unique field on kartoffelID and date value
+groupSchema.index({ kartoffelID: 1, date: 1 }, { unique: true });
 
 export const GroupModel = mongoose.model<IGroup & mongoose.Document>('group', groupSchema);

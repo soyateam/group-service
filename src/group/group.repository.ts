@@ -1,25 +1,27 @@
 import { GroupModel } from "./group.model";
+import config from '../config';
+
 
 export class GroupRepository {
-  static getById(kartoffelID: string) {
-    return GroupModel.findOne({ kartoffelID }).exec();
+  static getById(kartoffelID: string, dateFilter: string = config.CURRENT_DATE_VALUE) {
+    return GroupModel.findOne({ kartoffelID, date: dateFilter }).exec();
   }
 
-  static getChildrenByParentId(pId: string) {
-    return GroupModel.findOne({ kartoffelID: pId }).populate("childrenPopulated").exec();
+  static getChildrenByParentId(pId: string, dateFilter: string = config.CURRENT_DATE_VALUE) {
+    return GroupModel.findOne({ kartoffelID: pId, date: dateFilter }).populate({ path: 'childrenPopulated', match: { date: dateFilter } }).exec();
   }
 
   static updateById(id: string, amountChange: number) {
     return GroupModel.findOneAndUpdate(
-      { kartoffelID: id },
+      { kartoffelID: id, date: config.CURRENT_DATE_VALUE },
       { $inc: { assignedCount: amountChange } },
       { new: true }
     ).exec();
   }
 
-  static getUnitInfo(unitName: string) {
+  static getUnitInfo(unitName: string, dateFilter: string = config.CURRENT_DATE_VALUE) {
     return GroupModel.aggregate([
-      { $match: { unitName } },
+      { $match: { unitName, date: dateFilter } },
       {
         $group: {
           _id: "$unitName",
@@ -55,6 +57,7 @@ export class GroupRepository {
             miluimSum: "$miluimSumRank",
             civilianSum: "$civilianSumRank",
           },
+          date: dateFilter,
         },
       },
     ]).exec();

@@ -11,6 +11,7 @@ export interface IUnit {
   peopleSum: IServiceType;
   serviceType: IServiceType;
   rankType: IRankType;
+  date: string;
 }
 
 export interface IResponseUnitSums {
