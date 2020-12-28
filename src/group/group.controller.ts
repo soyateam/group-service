@@ -14,7 +14,7 @@ export class GroupController {
    */
   static async getById(req: Request, res: Response) {
     const { id } = req.params;
-    const dateFilter = req.query.date as string || config.CURRENT_DATE_VALUE;
+    const dateFilter = req.query.date as string;
 
     const group: IGroup | null = await GroupManager.getById(id, dateFilter);
     if (!group) throw new GroupNotFound(id);
@@ -29,7 +29,7 @@ export class GroupController {
    */
   static async getManyByIds(req: Request, res: Response) {
     const { ids } = req.body;
-    const dateFilter = req.query.date as string || config.CURRENT_DATE_VALUE;
+    const dateFilter = req.query.date as string;
 
     const groups: IResponseGetByMany = await GroupManager.getManyByIds(ids, dateFilter);
 
@@ -43,7 +43,7 @@ export class GroupController {
    */
   static async getChildrenByParentId(req: Request, res: Response) {
     const pId = req.params.id ? req.params.id : config.RootAncestorId;
-    const dateFilter = req.query.date as string || config.CURRENT_DATE_VALUE;
+    const dateFilter = req.query.date as string;
     console.log(dateFilter);
 
     if (!Validations.isIdValid(pId)) throw new IdInvalidError(pId);
@@ -76,7 +76,7 @@ export class GroupController {
    */
   static async getUnitsSums(req: Request, res: Response) {
     const { unitsNames } = req.body;
-    const dateFilter = req.query.date as string || config.CURRENT_DATE_VALUE;
+    const dateFilter = req.query.date as string;
 
     const unitInfo: IResponseUnitSums = await GroupManager.getUnitsInfo(unitsNames, dateFilter);
 
