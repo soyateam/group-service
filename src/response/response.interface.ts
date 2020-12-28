@@ -10,8 +10,7 @@ export interface IUnit {
   groupsCount: number;
   peopleSum: IServiceType;
   serviceType: IServiceType;
-  rankType: IRankType;
-  date: string;
+  rankType: IRankType;  
 }
 
 export interface IResponseUnitSums {

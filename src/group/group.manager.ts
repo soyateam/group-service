@@ -4,15 +4,15 @@ import { IGroup } from "./group.interface";
 import config from '../config';
 
 export class GroupManager {
-  static getById(id: string, dateFilter: string = config.CURRENT_DATE_VALUE) {
+  static getById(id: string, dateFilter?: string) {
     return GroupRepository.getById(id, dateFilter);
   }
 
-  static getByParentId(pId: string, dateFilter: string = config.CURRENT_DATE_VALUE) {
+  static getByParentId(pId: string, dateFilter?: string) {
     return GroupRepository.getChildrenByParentId(pId, dateFilter);
   }
 
-  static async getManyByIds(ids: [string], dateFilter: string = config.CURRENT_DATE_VALUE) {
+  static async getManyByIds(ids: [string], dateFilter?: string) {
     let response: IResponseGetByMany = { groups: [], notFound: [] };
     await Promise.all(
       ids.map(async (id) => {
@@ -24,7 +24,7 @@ export class GroupManager {
     return response;
   }
 
-  static async getUnitsInfo(unitNames: [string], dateFilter: string = config.CURRENT_DATE_VALUE) {
+  static async getUnitsInfo(unitNames: [string], dateFilter?: string) {
     let response: IResponseUnitSums = { units: [], notFound: [] };
     await Promise.all(
       unitNames.map(async (unitName) => {
