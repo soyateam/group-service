@@ -1,6 +1,7 @@
 import { GroupModel } from "./group.model";
 import DateDumpModel from '../utils/dateDumpModel';
 import config from '../config';
+import { collectionName } from "./group.interface";
 
 
 export class GroupRepository {
@@ -118,5 +119,12 @@ export class GroupRepository {
         },
       },
     ]).exec();
+  }
+
+  /**
+   * Get all date filters for groups.
+   */
+  static async getDateFilters() {
+    return await DateDumpModel.getAllDates(`${collectionName.toLowerCase()}s`);
   }
 }

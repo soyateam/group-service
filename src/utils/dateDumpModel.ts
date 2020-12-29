@@ -4,14 +4,15 @@ import { IGroup } from '../group/group.interface';
 
 export default class DateDumpModel {
 
-    static getAllDates(collectionName: string) {
+    static async getAllDates(collectionName: string) {
         const regexCollectionName = new RegExp(`${collectionName}_([0-9]{4}\-[0-9]{2})`);
-        const collections = Object.keys(mongoose.connection.collections);
+
+        const collections = await mongoose.connection.db.listCollections().toArray();
         const dates = [];
 
-        for (let collection of collections) {
-            let regexMatches = collection.match(regexCollectionName);
-            
+        for (const collection of collections) {
+            const regexMatches = collection.name.match(regexCollectionName);
+
             if (regexMatches) {
                 dates.push(regexMatches[1]);
             }

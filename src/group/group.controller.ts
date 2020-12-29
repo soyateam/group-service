@@ -82,4 +82,13 @@ export class GroupController {
 
     res.json(unitInfo);
   }
+
+  /**
+   * Get date filters for groups.
+   * @param req - Express Request with body of units names array
+   * @param res - Express Response, returns array containing the dates (YYYY-MM)
+   */
+  static async getDateFilters(req: Request, res: Response) {
+    return res.status(200).send(await GroupManager.getDateFilters());
+  }
 }

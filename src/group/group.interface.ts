@@ -28,3 +28,5 @@ export interface IRankType {
   miluimSum: number;
   civilianSum: number;
 }
+
+export const collectionName = 'group';

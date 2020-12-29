@@ -40,4 +40,8 @@ export class GroupManager {
     const amountUpdate = isInc ? 1 : -1;
     return GroupRepository.updateById(id, amountUpdate);
   }
+
+  static async getDateFilters() {
+    return await GroupRepository.getDateFilters();
+  }
 }
