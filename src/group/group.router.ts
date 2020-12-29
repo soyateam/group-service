@@ -5,6 +5,7 @@ import { Validations } from "../utils/validations/validations";
 
 const GroupRouter: Router = Router();
 
+GroupRouter.get('/units', BaseRequest.wrapAsync(GroupController.getUnitsNames));
 GroupRouter.get('/dates', BaseRequest.wrapAsync(GroupController.getDateFilters));
 
 GroupRouter.get(`/children/:id?`, BaseRequest.wrapAsync(GroupController.getChildrenByParentId));

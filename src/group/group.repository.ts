@@ -122,6 +122,14 @@ export class GroupRepository {
   }
 
   /**
+   * Get all units names and ids.
+   * @param dateFilter - Date filter for groups.
+   */
+  static async getUnitsNames(dateFilter?: string) {
+    return this.getChildrenByParentId(config.RootAncestorId, dateFilter);
+  }
+
+  /**
    * Get all date filters for groups.
    */
   static async getDateFilters() {

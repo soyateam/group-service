@@ -84,6 +84,19 @@ export class GroupController {
   }
 
   /**
+   * Get unit names from group hierarchy tree.
+   * @param req - Express Request with body of units names array
+   * @param res - Express Response, returns array containing object with the unit names and corresponding id
+   */
+  static async getUnitsNames(req: Request, res: Response) {
+    const dateFilter = req.query.date as string;
+
+    const unitNames = await GroupManager.getUnitsNames(dateFilter) as any;
+
+    return res.status(200).send(unitNames.childrenPopulated);
+  }
+
+  /**
    * Get date filters for groups.
    * @param req - Express Request with body of units names array
    * @param res - Express Response, returns array containing the dates (YYYY-MM)

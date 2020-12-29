@@ -41,6 +41,10 @@ export class GroupManager {
     return GroupRepository.updateById(id, amountUpdate);
   }
 
+  static async getUnitsNames(dateFilter?: string) {
+    return await GroupRepository.getUnitsNames(dateFilter);
+  }
+
   static async getDateFilters() {
     return await GroupRepository.getDateFilters();
   }
