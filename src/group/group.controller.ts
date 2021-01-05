@@ -55,6 +55,24 @@ export class GroupController {
   }
 
   /**
+   * Gets all children by the parent id
+   * @param req - Express Request with param of parent id or null (and the we set the parent id to be the root ancestor id)
+   * @param res - Express Response,  returns array of group
+   */
+  static async getAllChildrenByParentId(req: Request, res: Response) {
+    const pId = req.params.id ? req.params.id : config.RootAncestorId;
+    const dateFilter = req.query.date as string;
+    console.log(dateFilter);
+
+    if (!Validations.isIdValid(pId)) throw new IdInvalidError(pId);
+
+    const group = await GroupManager.getAllByParentId(pId, dateFilter);
+    if (!group) throw new GroupNotFound(pId);
+
+    res.json(group);
+  }
+
+  /**
    * Assign/Unassigned task for group (unassigned decrease the counter and assigned increase the counter by one)
    * @param req - Express Request with group id param and boolean isCountGrow (true for increasing, false for decreasing)
    * @param res - Express Response, returns the updated group

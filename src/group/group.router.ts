@@ -9,6 +9,7 @@ GroupRouter.get('/units', BaseRequest.wrapAsync(GroupController.getUnitsNames));
 GroupRouter.get('/dates', BaseRequest.wrapAsync(GroupController.getDateFilters));
 
 GroupRouter.get(`/children/:id?`, BaseRequest.wrapAsync(GroupController.getChildrenByParentId));
+GroupRouter.get(`/allChildren/:id?`, BaseRequest.wrapAsync(GroupController.getAllChildrenByParentId));
 GroupRouter.get(`/:id`, Validations.isIdParamValid, BaseRequest.wrapAsync(GroupController.getById));
 
 GroupRouter.post(`/unit`, Validations.isUnitBodyValid, BaseRequest.wrapAsync(GroupController.getUnitsSums));

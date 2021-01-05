@@ -26,6 +26,14 @@ export class GroupRepository {
     return GroupModel.findOne({ kartoffelID: pId }).populate('childrenPopulated').exec();
   }
 
+  static getAllChildrenByParentId(pId: string, dateFilter?: string) {
+    if (dateFilter) {
+      return GroupRepository.getModelByDate(dateFilter).find({ ancestors: { $all: [pId] }});
+    }
+    
+    return GroupModel.find({ ancestors: { $all: [pId] }});
+  }
+
   static updateById(id: string, amountChange: number) {
     return GroupModel.findOneAndUpdate(
       { kartoffelID: id },

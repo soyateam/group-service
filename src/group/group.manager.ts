@@ -12,6 +12,10 @@ export class GroupManager {
     return GroupRepository.getChildrenByParentId(pId, dateFilter);
   }
 
+  static getAllByParentId(pId: string, dateFilter?: string) {
+    return GroupRepository.getAllChildrenByParentId(pId, dateFilter);
+  }
+
   static async getManyByIds(ids: [string], dateFilter?: string) {
     let response: IResponseGetByMany = { groups: [], notFound: [] };
     await Promise.all(
