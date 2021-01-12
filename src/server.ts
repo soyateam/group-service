@@ -38,8 +38,8 @@ export class Server {
 
   private initializeMiddlewares() {
     this.app.use(addHeaders);
-    this.app.use(bodyParser.urlencoded({ extended: true }));
-    this.app.use(bodyParser.json());
+    this.app.use(bodyParser.urlencoded({ extended: true, limit: '1000mb' }));
+    this.app.use(bodyParser.json({ limit: '1000mb' }));
     this.app.use(helmet());
 
     if (config.env.node === config.env.dev) {
