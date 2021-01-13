@@ -34,6 +34,13 @@ export class GroupRepository {
     return GroupModel.find({ ancestors: { $all: [pId] }});
   }
 
+  static updateByManyIds(groups: string[], amountChange: number) {
+    return GroupModel.updateMany(
+      { kartoffelID: { $in : groups } },
+      { $inc: { assignedCount: amountChange } }
+    ).exec();
+  }
+
   static updateById(id: string, amountChange: number) {
     return GroupModel.findOneAndUpdate(
       { kartoffelID: id },

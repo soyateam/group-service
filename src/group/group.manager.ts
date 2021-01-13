@@ -40,6 +40,11 @@ export class GroupManager {
     return response;
   }
 
+  static async updateMultipleCounter(groups: string[], isInc: boolean) {
+    const amountUpdate = isInc ? 1 : -1;
+    return await GroupRepository.updateByManyIds(groups, amountUpdate);
+  }
+
   static async updateCounter(id: string, isInc: boolean) {
     const amountUpdate = isInc ? 1 : -1;
     return GroupRepository.updateById(id, amountUpdate);

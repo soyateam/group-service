@@ -2,7 +2,7 @@ import config from '../config';
 import { Request, Response } from 'express';
 import { GroupManager } from './group.manager';
 import { IGroup } from './group.interface';
-import { GroupNotFound, IdInvalidError } from '../utils/erros/userErrors';
+import { GroupNotFound, IdInvalidError, InvalidBodyError } from '../utils/erros/userErrors';
 import { Validations } from '../utils/validations/validations';
 import { IResponseUnitSums, IResponseGetByMany } from '../response/response.interface';
 
@@ -70,6 +70,24 @@ export class GroupController {
     if (!group) throw new GroupNotFound(pId);
 
     res.json(group);
+  }
+
+  /**
+   * Assign/Unassigned task for multiple groups (unassigned decrease the counter and assigned increase the counter by one)
+   * @param req - Express Request with body contains group ids and boolean isCountGrow (true for increasing, false for decreasing)
+   * @param res - Express Response, returns the updated group
+   */
+  static async updateMultipleCounter(req: Request, res: Response) {
+    const ids = req.body.ids;
+    const isCountGrow = req.body.isCountGrow;
+    
+    if (ids && typeof isCountGrow === 'boolean') {
+      await GroupManager.updateMultipleCounter(ids, isCountGrow);
+
+      return res.status(200).send();
+    }
+
+    throw new InvalidBodyError(`${!ids ? 'ids, ': ''}${typeof isCountGrow !== 'boolean' ? 'isCountGrow': ''}`);
   }
 
   /**

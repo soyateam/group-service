@@ -6,6 +6,12 @@ export class IdInvalidError extends UserError {
   }
 }
 
+export class InvalidBodyError extends UserError {
+  constructor(missing: string, message = 'Bad request - invalid body provided.') {
+    super(`${message}, missing fields: ${missing}`, 400);
+  }
+}
+
 export class QueryParamInvalidError extends UserError {
   constructor(message = 'Query param is invalid') {
     super(message, 400);

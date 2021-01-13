@@ -16,6 +16,11 @@ GroupRouter.post(`/unit`, Validations.isUnitBodyValid, BaseRequest.wrapAsync(Gro
 GroupRouter.post(`/`, Validations.isIdsBodyValid, BaseRequest.wrapAsync(GroupController.getManyByIds));
 
 GroupRouter.put(
+  '/assign',
+  BaseRequest.wrapAsync(GroupController.updateMultipleCounter)
+);
+
+GroupRouter.put(
   `/:id`,
   Validations.isIdParamValid,
   Validations.IsTaskGrowValid,
