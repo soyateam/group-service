@@ -18,6 +18,55 @@ export class GroupRepository {
     return GroupModel.findOne({ kartoffelID }).exec();
   }
 
+  static getSumOfMainGroup(unitFilter?: string, dateFilter?: string) {
+
+    let aggregation: any = [
+      {
+        $group: {
+          _id: '',
+          peopleSum: { $sum: '$peopleSum' },
+        },
+      },
+      {
+        $project: {
+          _id: 0,
+          peopleSum: 1,
+        },
+      },
+    ];
+
+    if (unitFilter) {
+      aggregation = [
+        { 
+          $match: {
+            $or: [
+              { ancestors: unitFilter },
+              { kartoffelID: unitFilter },
+            ],
+          },
+        },
+        {
+          $group: {
+            _id: '',
+            peopleSum: { $sum: '$peopleSum' },
+          },
+        },
+        {
+          $project: {
+            _id: 0,
+            peopleSum: 1,
+          },
+        },
+      ];
+    }
+
+    if (dateFilter) {
+      return GroupRepository.getModelByDate(dateFilter).aggregate(aggregation).exec();
+    }
+
+    return GroupModel.aggregate(aggregation).exec();
+  }
+
   static getChildrenByParentId(pId: string, dateFilter?: string) {
     if (dateFilter) {
       return GroupRepository.getModelByDate(dateFilter).findOne({ kartoffelID: pId }).populate('childrenPopulated').exec();

@@ -16,6 +16,10 @@ export class GroupManager {
     return GroupRepository.getAllChildrenByParentId(pId, dateFilter);
   }
 
+  static async getSumOfMainGroup(unitFilter?: string, dateFilter?: string) {
+    return await GroupRepository.getSumOfMainGroup(unitFilter, dateFilter);
+  }
+
   static async getManyByIds(ids: [string], dateFilter?: string) {
     let response: IResponseGetByMany = { groups: [], notFound: [] };
     await Promise.all(

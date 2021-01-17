@@ -37,6 +37,20 @@ export class GroupController {
   }
 
   /**
+   * Get sum of main groups (by filter of main group to sum with)
+   * @param req - Express Request with query param which indicates which main group to calculate on (which unit)
+   * @param res - Express Response,  returns object with sum property containing the sum.
+   */
+  static async getSumOfMainGroups(req: Request, res: Response) {
+    const unitFilter = req.query.unit as string;
+    const dateFilter = req.query.date as string;
+
+    const result = await GroupManager.getSumOfMainGroup(unitFilter, dateFilter);
+
+    return res.status(200).send({ sum: result[0].peopleSum });
+  }
+
+  /**
    * Gets children by the parent id
    * @param req - Express Request with param of parent id or null (and the we set the parent id to be the root ancestor id)
    * @param res - Express Response,  returns array of group

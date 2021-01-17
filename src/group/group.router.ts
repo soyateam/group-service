@@ -7,6 +7,7 @@ const GroupRouter: Router = Router();
 
 GroupRouter.get('/units', BaseRequest.wrapAsync(GroupController.getUnitsNames));
 GroupRouter.get('/dates', BaseRequest.wrapAsync(GroupController.getDateFilters));
+GroupRouter.get('/sum', BaseRequest.wrapAsync(GroupController.getSumOfMainGroups))
 
 GroupRouter.get(`/children/:id?`, BaseRequest.wrapAsync(GroupController.getChildrenByParentId));
 GroupRouter.get(`/allChildren/:id?`, BaseRequest.wrapAsync(GroupController.getAllChildrenByParentId));
